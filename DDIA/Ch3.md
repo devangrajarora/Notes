@@ -13,3 +13,15 @@ Log: Append only data file
 * Maintaining index incurs an overhead, especially on writes as the index needs to be updated
 * Well chosen index can speed up reads, all indexes slow down writes **[trade-off]**
   * Application owner needs to choose index based on common query patterns
+
+## Hash Index
+### Case Study: Bitcask
+* Key value store. High performance reads & writes, keys should fit in RAM.
+  * Insertion: append only log (on disk)
+  * Updates: New insertion
+  * Retrieval: Using a hash index - store byte offset of key value pair in a hashmap (in memory)
+  * Number of unique keys should be small enough to be held in memory
+* Values can be large and are stored on disk. Caching can help in retrieving values faster
+* Good for large number of updates as compared to new entries
+
+#### Compaction
