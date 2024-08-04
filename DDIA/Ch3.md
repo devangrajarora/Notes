@@ -60,3 +60,32 @@ Cons
 * Hash table must fit in memory
 * Range scans are not effective. Each key needs to be search individually
 
+## SSTables and LSM-Trees
+### SSTables
+* Sorted String Table (SSTable): KV pairs are sorted by key
+* Merging segments
+  * Simple and efficient, similar to mergesort
+  * Number of unique keys need not fit in memory
+* Sparse index
+  * No longer need to store all keys in memory (like the hash index in Bitcask)
+  * Store some keys (one for every few kB of the segment, pretty fast scan) with their byte offset
+* Compression
+  * Since read requires a (small) range scan, it is possible to group the records in a block and compress them before writing to disk
+  * This saves disk space and I/O bandwidth
+ 
+### Constructing and maintaining SSTables
+* In-memory balanced tree to maintain sorted order of incoming writes
+  * aka Memtable
+  * Implementations: Red-Black trees, AVL trees
+* Incoming read and write requests are served by the memtable
+* Once the memtable gets larger than a certain threshold (typically greater than a few MB), write it to disk as an SSTable
+  * While this process in going on, new writes go to new memtable instance
+* For incoming reads, first search memtable, then the SSTable file starting from most recent
+* From time to time run compaction algorithm to merge SSTables and discard old ones
+* Searching in the SSTable
+  * Sparse index is written to the same file
+  * Load index keys in memory and search for target key (binary search)
+  * Read file starting from the derived byte offset
+
+
+
