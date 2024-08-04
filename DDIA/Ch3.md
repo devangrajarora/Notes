@@ -87,5 +87,8 @@ Cons
   * Load index keys in memory and search for target key (binary search)
   * Read file starting from the derived byte offset
 
-
-
+### LSM Tree
+* The above described storage structure is referred to as Log-Structured Merge Tree
+* Core idea: Keeps a bunch of sorted files (eg - SSTable files) and performs merging and compaction on them in the background
+* Range queries are efficient since keys are sorted
+* Merge has high write throughput as data is to be written sequentially
