@@ -30,39 +30,42 @@
 * Lower height → Reduce number of disk seeks during traversal
 
 Overall BST is not suited as a disk based data structure and works better as an in-memory data structure.
-Disk based data structures
-Some data structures are better suited to be used on disk and some in memory
-Disk
-Store large amounts of data
-Updates are more expensive
-In-memory
-Can only store little data
-Quick updates and easier pointer access
-HDD
-Hard disk drives/Spinning disks
-Seeks require disk rotation and mechanical head movement to place the read/write head at the position from where a contiguous memory block will be read/written
-Sector - smallest unit of read/write (512 bytes - 4Kb)
-Head positioning is expensive, reading/writing to sector is relatively cheap
-SSD
-Solid state drive
-No disk rotation or head positioning is required
-SSD is made from memory cells. Memory cells hold a one or more bits
-Cells are connected into strings
-Strings are connected into arrays
-Arrays are combined into pages
-Pages are combined into blocks
-Blocks are combined into planes
-Planes are placed on a Die
-Smallest unit that can be written or read is a Page
-Challenges for making a Disk based data structure
-Disk seek cost
-Block level abstraction
-Smallest unit of data extraction is a block. If our data structure points to a certain memory location, we will have to read the whole block. The data structure should align with this architectural limitation.
 
-Optimize for fewer disk accesses
-Improving locality
-Reduce out-of-page pointers
-Optimize internal memory representation
+## Disk based data structures
+Some data structures are better suited to be used on disk and some in memory
+
+| Disk  | In-Memory |
+| ------------- | ------------- |
+| Store large amounts of data  | Can only store little data  |
+| Updates are more expensive  | Quick updates and easier pointer access  |
+
+### HDD
+* Hard disk drives/Spinning disks
+* Seeks require disk rotation and mechanical head movement to place the read/write head at the position from where a contiguous memory block will be read/written
+  * Sector - smallest unit of read/write (512 bytes - 4Kb)
+* Head positioning is expensive, reading/writing to sector is relatively cheap
+
+### SSD
+* Solid state drive
+* No disk rotation or head positioning is required
+* SSD is made from memory cells. Memory cells hold a one or more bits
+  * Cells are connected into strings
+  * Strings are connected into arrays
+  * Arrays are combined into pages
+  * Pages are combined into blocks
+  * Blocks are combined into planes
+  * Planes are placed on a Die
+* Smallest unit that can be written or read is a Page
+
+<ins>Challenges for making a Disk based data structure</ins>
+* Disk seek cost
+* Block level abstraction
+  * Smallest unit of data extraction is a block. If our data structure points to a certain memory location, we will have to read the whole block. The data structure should align with this architectural limitation.
+* Optimize for fewer disk accesses
+  * Improving locality
+  * Reduce out-of-page pointers
+  * Optimize internal memory representation
+
 B-Trees
 Nodes are represented as rectangles with pointer blocks
 More data can be stored in the same node → Increased fanout, decreased height
