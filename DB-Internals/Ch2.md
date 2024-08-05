@@ -66,48 +66,45 @@ Some data structures are better suited to be used on disk and some in memory
   * Reduce out-of-page pointers
   * Optimize internal memory representation
 
-B-Trees
-Nodes are represented as rectangles with pointer blocks
-More data can be stored in the same node → Increased fanout, decreased height
+## B-Trees
+* Nodes are represented as rectangles with pointer blocks
+* More data can be stored in the same node → Increased fanout, decreased height
+* B-Trees are sorted
+  * Each node contains multiple keys which are sorted. We can use binary search to search within nodes
+  * Can be used to perform both point (single item) and range queries
+* B-Trees are a page organization technique, node and page are used interchangeably
 
+* Hierarchy
+  * Each B-Tree node contains multiple keys
+  * Each node contains N keys and N+1 child node pointers
+  * Root node, internal nodes, leaf nodes
 
-B-Trees are sorted
-Each node contains multiple keys which are sorted. We can use binary search to search within nodes
-Can be used to perform both point (single item) and range queries
-B-Trees are a page organization technique, node and page are used interchangeably
+* Occupancy: Relationship between node capacity and number of keys it actually holds
+* Fanout
+  * B-Trees are characterized by their fanout
+  * Higher fanout helps amortize the cost of disk seeks and tree balancing
 
+* Tree balancing (split, merge) is triggered when node is full or nearly empty
+* B+ Trees
+  * Actual implementation of B-Trees
+  * Data is only stored in leaf nodes
+  * Internal nodes just store separator keys
+  * Operations (insertion, deletion, updates) only affect leaf nodes and only propagate upwards during split and merges
+  
+* Separator Keys
+  * Keys stored in B-Trees are called index keys, separator keys or divider cells
+  * Split the tree into subtrees holding key ranges
 
-Hierarchy
-B-Tree contains multiple nodes
-Each node contains N keys and N+1 child node pointers
-Root node, internal nodes, leaf nodes
+* Keys are stored in sorted order
+  * First pointer in a node points to a subtree with keys strictly smaller than the first key in the node
+  * Last pointer in a node points to a subtree with keys greater or equal to the last key in a node
+  * K<sub>i-1</sub> ≤ K<sub>s</sub> < K<sub>i+1</sub> where K<sub>s</sub> is a key that belongs to the subtree
 
+* Some B-Tree variants have sibling pointers between leaf nodes (single or double sided)
+* B-Trees are built bottom up
+  * As leaf nodes get filled up, we need to add more internal nodes
+  * This is contrary to BSTs
 
-Occupancy: Relationship between node capacity and number of keys it actually holds
-Fanout
-B-Trees are characterized by their fanout
-Higher fanout helps amortize the cost of disk seeks and tree balancing
-
-
-Tree balancing (split, merge) is triggered when node is full or nearly empty
-B+ Trees
-Actual implementation of B-Trees
-Data is only stored in leaf nodes
-Internal nodes just store separator keys
-Operations (insertion, deletion, updates) only affect leaf nodes and only propagate upwards during split and merges
-Separator Keys
-Keys stored in B-Trees are called index keys, separator keys or divider cells
-Split the tree into subtrees holding key ranges
-
-Keys are stored in sorted order
-First pointer in a node points to a subtree with keys strictly smaller than the first key in the node
-Last pointer in a node points to a subtree with keys greater or equal to the last key in a node
-Ki-1 ≤ Ks < Ki+1 where Ks is a key that belongs to the subtree
-
-Some B-Tree variants have sibling pointers between leaf nodes (single or double sided)
-B-Trees are built bottom up
-As leaf nodes get filled up, we need to add more internal nodes
-This is contrary to BSTs
 B-Tree Lookup Complexity
 2 factors
 Number of block transfers
