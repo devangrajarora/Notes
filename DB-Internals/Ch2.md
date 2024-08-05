@@ -105,40 +105,42 @@ Some data structures are better suited to be used on disk and some in memory
   * As leaf nodes get filled up, we need to add more internal nodes
   * This is contrary to BSTs
 
-B-Tree Lookup Complexity
-2 factors
-Number of block transfers
-Number of comparisons
+### B-Tree Lookup Complexity
+* 2 factors
+  * Number of block transfers
+  * Number of comparisons
 
 M → number of items in tree
 N → number of keys per node
 K → number of times more nodes on each level
 
-Number of child pointers to be followed from root to leaf is height of tree
-At most logKM pages are addressed to find the search key
-Lookup complexity → log2M ~ logM
-Insertion
-For insertion - locate target leaf and find insertion point. If node has empty elements, insert the new element
-Split needs to be performed if
-Node can hold N keys and adding a new key takes the count over N
-Index separator can hold N+1 pointers and adding new key takes number of pointers over N+1
-Split process:
-Allocate new node
-Move half the elements to new node
-Insert new element in one of the nodes
-If inserted key is less than the key at splitting point, insert into split node
-Else insert into new node
-At the parent of the split node, add a separator key and pointer to the new node
-If the parent is at full capacity, it needs to be split similarly
-This split could propagate up to the root. In that case a new root is added and height of tree increases by 1
-Deletion
-For deletion - locate target leaf and target key. Delete key and value
-Merges
-If two neighbouring sibling nodes have too low occupancy, their contents are merged into one
-Merge conditions
-For leaf nodes: if a node can hold up to N key-value pairs, and combined number of key-value pairs in two adjacent nodes in less than or equal to N
-For non-leaf nodes: if a node can hold N+1 pointers, and the combined number of pointers in two adjacent nodes is less than or equal to N+1
-Merge process:
-Copy all elements from right node to left one
-Remove right node pointer from parent
-Remove right node
+* Number of child pointers to be followed from root to leaf is height of tree
+* At most log<sub>K</sub>M pages are addressed to find the search key
+* Lookup complexity → log<sub>2</sub>M ~ logM
+
+### Insertion
+* For insertion - locate target leaf and find insertion point. If node has empty elements, insert the new element
+* Split needs to be performed if
+  * Node can hold N keys and adding a new key takes the count over N
+  * Index separator can hold N+1 pointers and adding new key takes number of pointers over N+1
+* Split process:
+  * Allocate new node
+  * Move half the elements to new node
+  * Insert new element in one of the nodes
+    * If inserted key is less than the key at splitting point, insert into split node
+    * Else insert into new node
+  * At the parent of the split node, add a separator key and pointer to the new node
+    * If the parent is at full capacity, it needs to be split similarly
+    * This split could propagate up to the root. In that case a new root is added and height of tree increases by 1
+
+### Deletion
+* For deletion - locate target leaf and target key. Delete key and value
+* Merges
+  * If two neighbouring sibling nodes have too low occupancy, their contents are merged into one
+  * Merge conditions
+    * For leaf nodes: if a node can hold up to N key-value pairs, and combined number of key-value pairs in two adjacent nodes in less than or equal to N
+    * For non-leaf nodes: if a node can hold N+1 pointers, and the combined number of pointers in two adjacent nodes is less than or equal to N+1
+* Merge process:
+  * Copy all elements from right node to left one
+  * Remove right node pointer from parent
+  * Remove right node
