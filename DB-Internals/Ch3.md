@@ -66,3 +66,21 @@ String
 * Enums
   * Often-repeated low-cardinality values
   * Can be represented as integers
+
+## General Principles
+* Files are generally split into fixed sized pages
+* Each page is a single block or contiguous blocks
+* Using pages of same size allows easier read and write access
+* Files typically have a fixed-sized header and trailer which contain information which needs to be accessed quickly
+* Rest of the file is split into pages
+* File format for a schema
+  * name string, int age, string address
+  * Store fixed size fields first, variable sized later
+  * Variable sized fields start with the byte size occupied by them
+  * Field positions can be identified through offsets
+
+## Page Structure
+* DB stores records in data and index files
+* Files are divided into fixed sized pages, each page spans multiple filesystem blocks
+* B-Tree node is a page or chain of pages
+* Each node contains series of triplets of key, value, pointer
