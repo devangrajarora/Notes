@@ -33,14 +33,18 @@ On-disk B-Trees
   * Deserialization: Convert byte sequences back to keys, values and complex types
 
 ### Endianness
-* Relative ordering of bytes
+* Relative ordering of **bytes**
 * Little Endian
-  * LSB comes first, followed by increasing order of significance
+  * LSB (byte) comes first, followed by increasing order of significance
   * LSB has lowest address in memory
 * Big Endian
   * MSB comes first, followed by decreasing order of significance
   * MSB has lowest address in memory
 * Same endianness needs to be used while encoding and decoding data
+
+Consider a 32-bit integer represented by 4 bytes B<sub>1</sub>B<sub>2</sub>B<sub>3</sub>B<sub>4</sub>\
+Little endian -> B<sub>4</sub>B<sub>3</sub>B<sub>2</sub>B<sub>1</sub>\
+Big endian -> B<sub>1</sub>B<sub>2</sub>B<sub>3</sub>B<sub>4</sub>
 
 ### Primitive types
 * Occupy fixed space in memory
