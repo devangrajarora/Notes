@@ -109,3 +109,66 @@ String
 Store variable sized data with minimal overhead | The only overhead is maintaining the pointer array
 Reclaim freed up space | Page can rewritten to consume freed up memory
 Address records in page from outside without regard to the exact location | From outside a cell is accessed by the ID, the actual memory location is only known inside the page
+
+### Cell Layout
+* 2 kinds of cells
+  * Key cells
+    * Found in inner nodes
+    * Contains separator keys and pointer to the page which lies between two adjacent keys
+  * Key-Value cells
+    * Found in leaf nodes
+    * Contain key and record
+* Pages are homogenous - they have either only key cells or only key-value cells
+  * also, cells in a Page would either have only fixed size data or only variable sized data, not both
+  * since this in consistent at a page level, we can store this information in the page header (ref Slotted Page structure)
+* Key cells
+  * key_size (int)
+  * child_page_id (int)
+  * key_bytes (bytes [])
+* Key-Value cells
+  * key_size (int)
+  * value_size (int)
+  * key_bytes (bytes [])
+  * value_bytes (bytes [])
+* We don’t need to store the offset for each child page, instead we can just store the page ID. A lookup table can map page ID to offset in memory
+  * Offset for each cell is determined at page level
+
+### Insertion into Slotted Page
+* Incoming records are appended at the right end of the cell, and new pointers are appended to the left
+  * Both these collections grow towards the center
+* Records are added in insertion order but the pointers can be rearranged to maintain the logical order and allow binary search
+* Pointers after the new pointer insertion point is moved rightwards
+
+### Deletion in Slotted Page
+* Record is not removed from disk, instead is marked for deletion. The pointer to the cell can be deleted.
+* The “freed up memory” is updated in an in-memory availability list which stores a pointer to the memory and the available bytes
+* For an incoming record we check if the fragmented memory has a fitting place for the new record using the availability list
+  * First fit strategy
+    * Insert record in the first segment large enough to hold the record
+    * Can lead to large overhead since an insertion might render rest of the free space unusable
+  * Best fit strategy
+    * Insert record in the smallest segment which can hold this record
+    * Need to scan all fragments every time
+* If no fragment is available but cumulative free space is enough to hold record, we defragment the page by rewriting it
+* If not enough space is available (regardless of defragmentation), we create an overflow page
+
+## Versioning
+* File formats need versions since they might evolve over time
+* Storage engine could have to support multiple file format versions
+* This info can be stored in
+  * Separate file
+  * File header
+  * Prefix of file name
+
+## Checksumming
+* Files on disk could get corrupted due to hardware and software failures, bugs etc
+* Checksumming, Cyclic Redundancy Checks are used to find data corruption
+* Checksums
+  * We can compute checksum of a page when it is written along with the data
+  * Checksum is stored in page header
+  * We recompute checksum while reading a page, in case checksum is different we discard the page
+  * Checksum can detect single bit change but can’t reliably detect multiple bit change
+  * Weak guarantee
+* CRC
+  * Can be used to tell when a sequence of bits have changed
+  * Uses lookup tables and polynomial division
