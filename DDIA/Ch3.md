@@ -91,4 +91,4 @@ Cons
 * The above described storage structure is referred to as Log-Structured Merge Tree
 * Core idea: Keeps a bunch of sorted files (eg - SSTable files) and performs merging and compaction on them in the background
 * Range queries are efficient since keys are sorted
-* Merge has high write throughput as data is to be written sequentially
+* Merge can support high write throughput as data is to be written sequentially
