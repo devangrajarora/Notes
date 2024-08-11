@@ -88,3 +88,24 @@ String
 * Files are divided into fixed sized pages, each page spans multiple filesystem blocks
 * B-Tree node is a page or chain of pages
 * Each node contains series of triplets of key, value, pointer
+
+## Slotted Pages
+* Organization technique used to store variable sized data, eg - strings, BLOBs (Binary Large Objects) etc
+* Reclaiming freed up space is an issue with variable size data
+  * Consider replacing a record of N bytes with an updated record of M bytes
+  * if M < N, N-M space will be unused unless we find another record which takes exactly that much space
+  * if M > N, record can not fit in this space and will need a new space, space occupied by old record is not reclaimed
+* Splitting page into X sized segments (essentially smaller minimum unit of storage)
+  * Unless M % X == 0, we have a partially filled page
+  * X - M%X space is left unoccupied
+* Page is divided into slots (or cells)
+* Page stores a fixed-sized header and a pointer array which points to cells
+  * Header stores important information about the page
+* Insertion: Store record in available memory and add a pointer to this memory
+* Deletion: Nullify the pointer or remove it. Pointers can be reorganized to reserve the order
+
+| Requirements | How Slotted Page technique addresses it |
+| ------------- | ------------- |
+Store variable sized data with minimal overhead | The only overhead is maintaining the pointer array
+Reclaim freed up space | Page can rewritten to consume freed up memory
+Address records in page from outside without regard to the exact location | From outside a cell is accessed by the ID, the actual memory location is only known inside the page
