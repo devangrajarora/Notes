@@ -71,7 +71,7 @@ String
   * Often-repeated low-cardinality values
   * Can be represented as integers
 
-## General Principles
+## File Structure
 * Files are generally split into fixed sized pages
 * Each page is a single block or contiguous blocks
 * Using pages of same size allows easier read and write access
