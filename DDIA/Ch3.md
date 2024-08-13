@@ -118,3 +118,20 @@ Cons
   * If not, split the page into two half-full pages, and add a pointer to the newly created page in the parent. Update the separator key in the parent
   * If parent is full this propagates upwards
 * Depth of B-Tree is O(logN)
+
+### In place updates and reliability
+* B-Tree allows updating content of a page and rewriting the page
+  * This is contrary to LSM trees which are append only
+  * Page write is a hardware operation
+* Updates don’t change pointers to the page
+* Multi-page updates
+  * Some updates require multiple pages to be rewritten. Example: Splitting a page
+    * Creating new page and moving half data to it
+    * Removing half data from current page
+    * Adding new pointer to parent
+  * If DB crashes during this operation, index could end up in a corrupted state
+  * To prevent this DB has a write ahead log
+* Write Ahead Log
+  * Every operation to a DB is written to a log before it is executed
+  * Log is used to restore changes if DB crashes mid operation
+* Concurrency is important while writing to a page. This is typically handled using latches (lightweight locks)
