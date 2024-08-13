@@ -92,3 +92,29 @@ Cons
 * Core idea: Keeps a bunch of sorted files (eg - SSTable files) and performs merging and compaction on them in the background
 * Range queries are efficient since keys are sorted
 * Merge can support high write throughput as data is to be written sequentially
+
+## B-Trees
+* Most widely used indexing structure
+* Keeps keys in sorted order - efficient key value lookups and range queries
+* Can be implemented to store data on disk
+* Stores keys and records in fixed size pages (~4kB each)
+  * Pages are read and written together
+  * Page is composed of multiple filesystem blocks
+  * Pages can be identified by address or location on disk, which allows one page to point to another
+* Types of pages
+  * Root page: Start of B-Tree
+  * Inner page: Contains range boundaries (separator keys) and references to other pages between to keys. The reference points to another page which would contain keys between k<sub>1</sub> and k<sub>2</sub>
+  * Leaf page: Contains keys and values (values can be inline or we would have a reference to a page which contains the value)
+* Branching factor
+  * The number of children of a page
+  * Depends upon the space occupied by page references and separator keys/range boundaries
+* Updating a key
+  * Locate key in leaf node and update value
+  * Write the page back to disk with updated value
+  * Address/offset of the pages remains the same
+* Adding a new key
+  * Locate leaf page to add key in
+  * If space available, add the key and value
+  * If not, split the page into two half-full pages, and add a pointer to the newly created page in the parent. Update the separator key in the parent
+  * If parent is full this propagates upwards
+* Depth of B-Tree is O(logN)
