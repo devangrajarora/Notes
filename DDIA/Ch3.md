@@ -135,3 +135,31 @@ Cons
   * Every operation to a DB is written to a log before it is executed
   * Log is used to restore changes if DB crashes mid operation
 * Concurrency is important while writing to a page. This is typically handled using latches (lightweight locks)
+
+### Optimizations
+* Abbreviate keys(esp inner nodes): Decrease key size, more keys in page, higher branching factor
+  * This is used in B+ Trees
+* Increase locality: Keep pages together on disk, better for large range queries by reducing disk seeks
+* Increase pointers: Leaf nodes can have front and back pointers to siblings
+
+## Comparing B-Trees and LSM Trees
+* General rule of thumb: B-Trees faster for reads, LSM Trees faster for writes
+  * LSM Trees have to check multiple data structures and SSTables at different stages of compaction
+* In reality this depends on specific workloads
+
+### Advantages of LSM Trees
+* Write amplification
+  * Process of one write to database leading to multiple writes to disk over the DB’s lifetime
+  * B-Trees: Record is written to page and WAL. Rows are also written again during splitting and merging
+  * LSM Trees: Rows are rewritten to disk during merging and compaction of SSTables
+  * Especially harmful in SSDs where overriding blocks leads to block getting worn out over time
+  * Can be bottleneck in write heavy applications
+  * Higher writes lead to higher consumption of disk I/O bandwidth
+* LSM Trees typically have lower write amplification
+* LSM Trees can support higher write throughput
+  * Lower write amplification
+  * Sequential writes (faster in both HDD and SSD)
+* Better disk space utilization
+  * In LSM Trees, keys can be compressed and take lesser space on disk
+  * B-Trees typically have fragmented disk space within pages (empty slots, half filled pages after split)
+  * Lower storage overhead
