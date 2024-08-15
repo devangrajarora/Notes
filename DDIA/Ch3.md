@@ -163,3 +163,63 @@ Cons
   * In LSM Trees, keys can be compressed and take lesser space on disk
   * B-Trees typically have fragmented disk space within pages (empty slots, half filled pages after split)
   * Lower storage overhead
+
+### Disadvantages of LSM Trees
+* Large amount of write bandwidth of disk can be consumed during compaction which can interfere with incoming queries to the DB
+  * This is not a big problem for most queries but spikes up P99 latency
+  * Thus compaction can interfere with read/write performance
+  * If writes slow down → more segments exist since compaction slows down → more segments need to be checked → reads slow down
+* Same key might exist across multiple segments with different values
+  * On the contrary, B-Tree only stores one copy of a key
+
+## Other indexing structures
+* KV indexes like the ones discussed above are used to build primary key index (keys are unique)
+* Secondary key index: Index on other fields in the record
+  * Important for joins, ex: join on user_id would be faster if a secondary key exists on user_id
+  * Keys may not be unique. 2 solutions
+    * Create postings list for each key (list of values)
+    * Make keys unique by adding row number as prefix
+  * Can be built using both B-Trees and LSM Trees
+
+### Storing values in the index
+* Index can store values inline (clustered index) or a reference to the value (non-clustered index) which is written somewhere else
+* Heap files
+  * Values can be written to heap files and pointed to by the index
+  * Values/rows are stored in random order
+  * Heap file might be append only and has to keep track of deleted rows to reclaim the disk space
+  * Multiple indexes (primary and secondary) can point to the same location in the heap file. This avoids duplication of rows
+  * Updating value for the same key
+    * If the new value is smaller than the original, we can update in the same location. Index doesn’t need to be updated
+    * If new value is greater, we need to write to new memory location and update the index
+* Clustered index
+  * Saves extra disk seek from index file to heap file during reads
+  * More disk memory consumption, additional storage overhead
+  * InnoDB storage engine in MySQL
+    * Primary key index is clustered index
+    * Secondary indexes refer to primary key
+* Covering index
+  * Middle ground between clustered and non-clustered index
+  * Stores some columns with the key
+  * Allows queries on some fields to be faster and directly handled by primary index
+
+### Multi-column indexes
+* If we need to query rows based on a single column (key), the above described indexes work, but not for queries which span multiple columns
+* Concatenated index
+  * Concatenate columns into one key
+  * Can be used to query over any prefix of list of keys, but not for individual or random group of keys
+* Multidimensional index
+  * Values for multiple columns can be converted to a single value using a _space filling curve_ which can then be used to create the index
+
+## In-memory databases
+* Issues with storing data in memory
+  * RAM is expensive
+  * Not durable, data lost in case of crash
+* With technological advancements, cost of RAM going down
+* Combating durability concerns
+  * Battery powered RAM
+  * Maintaining log on disk storing DB operations to load data back to memory
+  * Storing snapshots of DB to disk
+  * Replication to other machines
+* More complex data structures can be used in memory, and we avoid overhead of converting them to a disk based representation
+  * This also allows allowing use of more complex data models
+  * Redis provides priority queues, sets etc
