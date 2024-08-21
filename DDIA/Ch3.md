@@ -223,3 +223,83 @@ Cons
 * More complex data structures can be used in memory, and we avoid overhead of converting them to a disk based representation
   * This also allows allowing use of more complex data models
   * Redis provides priority queues, sets etc
+
+## Transaction Processing or Analytics?
+
+
+
+* Transaction: Reads and writes which for a logical unit. Expected to be low latency.
+* Analytics: Studying large amount of data through aggregation on a few fields to understand trends or consumer patterns to make business decision, aka business intelligence
+
+<table>
+  <tr>
+   <td>
+<strong>Property</strong>
+   </td>
+   <td><strong>OLTP</strong>
+   </td>
+   <td><strong>OLAP</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Full form
+   </td>
+   <td>Online Transaction Processing
+   </td>
+   <td>Online Analytical Processing
+   </td>
+  </tr>
+  <tr>
+   <td>Read access pattern
+   </td>
+   <td>Small number of rows are scanned based on certain keys to access/update some data
+   </td>
+   <td>Large number of rows are scanned to aggregate certain columns
+   </td>
+  </tr>
+  <tr>
+   <td>Write access pattern
+   </td>
+   <td>Random access, low latency
+   </td>
+   <td>Batch write, ETL or event stream
+   </td>
+  </tr>
+  <tr>
+   <td>User
+   </td>
+   <td>End user via application
+   </td>
+   <td>Data analysts
+   </td>
+  </tr>
+  <tr>
+   <td>Need
+   </td>
+   <td>Core functioning of application
+   </td>
+   <td>Analyze consumer patterns to make business decisions
+   </td>
+  </tr>
+  <tr>
+   <td>Dataset size
+   </td>
+   <td>Gigabytes to Terabytes
+   </td>
+   <td>Terabytes to Petabytes
+   </td>
+  </tr>
+</table>
+
+
+* Why have separate system for analytics
+    * OLTP systems are expected to be high availability and low latency
+    * Analytics queries are ad-hoc and expensive. They might interfere with transactions from an end user in a OLTP system and increase latency for user
+* Data warehouse (OLAP DBs)
+    * DB optimized in analytical processing
+    * Contain read only copy of data from OLTP systems
+* Extract-Transform-Load (ETL)
+    * Process of getting data into warehouse
+    * Data comes through either stream of updates or periodic dump (Extract)
+    * Data is cleaned and processed (Transform)
+    * Data is converted to the schema defined by warehouse and stored (Load)
