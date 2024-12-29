@@ -16,7 +16,19 @@ How to use ML to predict weather data?
 
 **Model**: A model is a mathematical relationship derived from data which an ML system uses to make predictions.
 
+## Types of ML systems
+Based on techniques used for prediction and content generation:
+1. Supervised learning
+2. Unsupervised learning
+3. Reinforcement learning
+4. Generative AI
 
+### Supervised Learning
+* The model is provided with a large amount of data with correct answers
+* Models learns to associate elements with data to correct answers. With these correlations and patterns, the model predicts answers of future problems
+* Examples
+	* Similar to a student studying old exam papers with answers to prepare for new questions.
+  * Looking are previous quarter returns to predict next quarter returns 
 
 ## References
 1. https://developers.google.com/machine-learning/intro-to-ml
