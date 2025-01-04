@@ -1,5 +1,5 @@
 # Intro to ML
-Machine Learning is the process of trainging a software (i.e. a **model**) on **data** to make _meaningful predictions_ and _generate new content_.
+Machine Learning is the process of training a software (i.e. a **model**) on **data** to make _meaningful predictions_ and _generate new content_.
 * Make meaningful predictions:
 	* Translate a sentence to a different language
 	* Suggest next songs in a playlist
@@ -10,11 +10,11 @@ Machine Learning is the process of trainging a software (i.e. a **model**) on **
   * Write story based on prompt
 
 How to use ML to predict weather data?
-1. Provide the ML model on a large amount of weather data
+1. Provide the ML model a large amount of weather data
 2. Model _learns_ the relationship between weather patterns and amount of rain produced
 3. Model can _predict_ the amount of rain produced for given weather conditions
 
-**Model**: A model is a mathematical relationship derived from data which an ML system uses to make predictions.
+**Model**: A model is a <ins>mathematical relationship</ins> derived from data which an ML system uses to make predictions.
 
 ## Types of ML systems
 Based on techniques used for prediction and content generation:
@@ -26,13 +26,13 @@ Based on techniques used for prediction and content generation:
 ### Supervised Learning
 * Predictive models
 * The model is provided with a large amount of data with correct answers
-* Models learns to associate elements with data to correct answers. With these correlations and patterns, the model predicts answers of future problems
-* Examples
-	* Similar to a student studying old exam papers with answers to prepare for new questions.
+* Models learns to associate elements in data (features) to correct answers. With these correlations and patterns, the model predicts answers of future inputs
+* Analogy:
+  * Similar to a student studying old exam papers with answers to prepare for new questions.
   * Looking are previous quarter returns to predict next quarter returns
 * Common use cases
   1. Regression: Predicting numerical values based on historical data across multiple applicable factors
- 	2. Classification: Categorizing inputs into one or more categories
+	2. Classification: Categorizing inputs into one or more categories
   	* Binary or Multiclass classification
   	* Examples: Spam detection, classifying if an image is of a man/woman
 
