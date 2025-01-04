@@ -24,17 +24,35 @@ Based on techniques used for prediction and content generation:
 4. Generative AI
 
 ### Supervised Learning
-* Predictive models
-* The model is provided with a large amount of data with correct answers
-* Models learns to associate elements in data (features) to correct answers. With these correlations and patterns, the model predicts answers of future inputs
-* Analogy:
+**Input**:
+* Categorized/labeled data.
+* The model is provided with a large amount of data with correct answers. 
+
+**Goal**:
+* Associate data elements/features to correct answers.
+* With these correlations and patterns, the model predicts answers of future inputs.
+  
+Analogy:
   * Similar to a student studying old exam papers with answers to prepare for new questions.
   * Looking are previous quarter returns to predict next quarter returns
-* Common use cases
+
+Common use cases
   1. Regression: Predicting numerical values based on historical data across multiple applicable factors
 	2. Classification: Categorizing inputs into one or more categories
   	* Binary or Multiclass classification
   	* Examples: Spam detection, classifying if an image is of a man/woman
+
+### Unsupervised Learning
+**Input**:
+* Unlabeled data. Model is given no hint as to what category a data point belongs to.
+* Data does not contain any correct answers associated with it.
+
+**Goal**:
+* Based on patterns/features, identify clusters within the data.
+	* Data within a cluster has a higher degree of similarity
+  * Data in different clusters have a lower degree of similarity
+* Categorize incoming data into one of the clusters.
+* The model won't name any of the clusters, though we can decide to do so
 
 ## References
 1. https://developers.google.com/machine-learning/intro-to-ml
