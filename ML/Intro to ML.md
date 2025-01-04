@@ -67,5 +67,21 @@ The model learns based on feedback from its actions in a controlled environment.
 
 Example: AlphaGo, training robots to perform certain actions (walking, balancing etc)
 
+### Generative AI
+Generates content based on inputs. Can typically work on multiple forms of media (text, audio, video, images etc)
+
+**Input**:
+* A prompt which is a combination of one or more forms of media, example: text
+
+**Goal**:
+* Generate content in the form which the prompt expects.
+* Models are trained on a large amount of data, learns patterns within that data, to produce _new_ data which is similar to what it trained on.
+	* Technically it's not _new_ content. It's just a mix of what the model has been given as input.
+
+Example of training a GenAI model: Create a text-to-music model
+1. Unsupervised learning: Provide a large amount of music, so that the model can identify patterns and cluster it. These clusters can later be named.
+2. Supervised learning: Provide songs from specific genre (eg. rock) to make the model learn about mimicing rock music better.
+3. Reinforcement learning: Provide positive/negative feedback to model based on output produced for specific prompts.
+
 ## References
 1. https://developers.google.com/machine-learning/intro-to-ml
