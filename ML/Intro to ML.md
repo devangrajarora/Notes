@@ -54,5 +54,18 @@ Common use cases
 * Categorize incoming data into one of the clusters.
 * The model won't name any of the clusters, though we can decide to do so
 
+### Reinforcement Learning
+
+The model learns based on feedback from its actions in a controlled environment.
+
+**Input**:
+* Rewards or penalties based on actions performed by the model in a controlled environment.
+
+**Goal**:
+* Formulate a policy which provides a stratefy to maximise rewards.
+	* Policy: A probabilistic mapping of states to actions, i.e. what action to _likely_ take when in a particular state.
+
+Example: AlphaGo, training robots to perform certain actions (walking, balancing etc)
+
 ## References
 1. https://developers.google.com/machine-learning/intro-to-ml
