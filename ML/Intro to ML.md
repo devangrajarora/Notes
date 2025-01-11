@@ -99,7 +99,10 @@ Related data is stored in datasets.
 * Given unlabelled data, based on provided features the model should be able to predict the label.
 * Example: How will a new phone be priced?
 	* Features: brand, prev_version_sales, prev_version_price, camera, proccessor, release_date etc
-	* Label: price 
+	* Label: price
+   
+ * Not all features have equal impact on model accuracy. Strong the cause relation of feature to label, higher the importance of the feature.
+ * Ideal dataset: Large amount of data, high diversity, large number of strongly correlated features
 
 ## References
 1. https://developers.google.com/machine-learning/intro-to-ml
