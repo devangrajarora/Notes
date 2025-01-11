@@ -83,5 +83,23 @@ Example of training a GenAI model: Create a text-to-music model
 2. Supervised learning: Provide songs from specific genre (eg. rock) to make the model learn about mimicing rock music better.
 3. Reinforcement learning: Provide positive/negative feedback to model based on output produced for specific prompts.
 
+## Supervised Learning
+
+### Data
+Data might be the most important part of an ML system. There are different kinds of data:
+1. Words and numbers in a table
+2. Pixels in an image
+3. Waveforms in audio files
+
+Related data is stored in datasets.
+
+### Labels and features
+* Features are characteristics of the data, label is the answer which the model should predict.
+* Models are trained on labelled data. The model is supposed to derive the mathematical relationship between the features and the label.
+* Given unlabelled data, based on provided features the model should be able to predict the label.
+* Example: How will a new phone be priced?
+	* Features: brand, prev_version_sales, prev_version_price, camera, proccessor, release_date etc
+	* Label: price 
+
 ## References
 1. https://developers.google.com/machine-learning/intro-to-ml
