@@ -16,6 +16,13 @@ Linear equation: y = b + mx
 
 Linear regression equation: y = b + Σw<sub>i</sub>x<sub>i</sub>
   * y: label (output)
-  * b: bias of the model, also represented as w<sub>0</sub>, calculated during training
+  * b: bias of the model, also represented as w<sub>0</sub>
   * w<sub>i</sub>: weight of a feature
   * x<sub>i</sub>: feature (input)
+  * The bias and weights of linear regression equation get updated during training.
+
+### Loss
+Measure of how off the predicted label vs actual label is. The training process aims to minimise loss.\
+Direction of difference does not matter when calculating loss. Both these conditions have a positive loss value:
+ * _predicted_value_ < _actual_value_
+ * _predicted_value_ > _actual_value_
