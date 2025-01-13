@@ -16,6 +16,6 @@ Linear equation: y = b + mx
 
 Linear regression equation: y = b + w<sub>i</sub>x<sub>i</sub>
   * y: label (output)
-  * b: bias of the model
+  * b: bias of the model, also represented as w<sub>0</sub>, calculated during training
   * w<sub>i</sub>: weight of a feature
   * x<sub>i</sub>: feature (input)
