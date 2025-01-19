@@ -26,3 +26,19 @@ Measure of how wrong the predicted label is when compared to the actual label. T
 Direction of difference does not matter when calculating loss. Both these conditions have a positive loss value:
  * _predicted_value_ < _actual_value_
  * _predicted_value_ > _actual_value_
+
+#### Types of Loss
+1. L<sub>1</sub> loss
+    * Sum of absolute differences
+    * Σ |actual - predicted|
+2.  Mean absolute error (MAE)
+    * Mean of L<sub>1</sub> loss across data points
+    * L<sub>1</sub> loss / N, or (1 / N) * Σ |actual - predicted|
+3. L<sub>2</sub> loss
+    * Sum of squares of absolute differences
+    * Σ |actual - predicted|<sup>2</sup>
+4. Mean squared error (MSE)
+    * Mean of L<sub>2</sub> loss across data points
+    * L<sub>2</sub> loss / N
+  
+Squaring in L<sub>2</sub> and MSE, causes larger losses (>1) to become even bigger and smaller losses (<1) to become even smaller.
