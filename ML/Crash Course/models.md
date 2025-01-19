@@ -43,3 +43,14 @@ Direction of difference does not matter when calculating loss. Both these condit
   
 Squaring in L<sub>2</sub> and MSE, causes larger losses (>1) to become even bigger and smaller losses (<1) to become even smaller.\
 A model trained to minimise MSE moves closer to outliers, since presence of outliers is penalized more with L<sub>2</sub> than L<sub>1</sub>.
+
+### Gradient descent
+A model training technique to iteratively find the bias and weights to minimise loss.\
+Lower loss ~ better predictions\
+Gradient descent literally means change in downward direction, i.e. iterative decrement in loss value.
+
+Steps:
+  * Initialize bias = 0, weights = 0
+  * Compute loss value based on decided loss function
+  * Determine direction to move for bias and each weight
+  * Adjust bias and weight, repeat step 0
