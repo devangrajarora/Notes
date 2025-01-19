@@ -22,7 +22,7 @@ Linear regression equation: y = b + Σw<sub>i</sub>x<sub>i</sub>
   * The bias and weights of linear regression equation get updated during training.
 
 ### Loss
-Measure of how off the predicted label vs actual label is. The training process aims to minimise loss.\
+Measure of how wrong the predicted label is when compared to the actual label. The training process aims to minimise loss.\
 Direction of difference does not matter when calculating loss. Both these conditions have a positive loss value:
  * _predicted_value_ < _actual_value_
  * _predicted_value_ > _actual_value_
