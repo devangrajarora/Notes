@@ -54,3 +54,13 @@ Steps:
   * Compute loss value based on decided loss function
   * Determine direction to move for bias and each weight
   * Adjust bias and weight, repeat step 0
+
+**Model convergence:** State where model has reached it's minimal loss. Any further iterations of adjusting weights and bias will have little to no reduction in loss.
+
+### Hyperparameters
+Hyperparameters are parameters which are used to control the process of model training. Example:
+  * Batch size
+  * Learning rate
+  * Epoch
+
+Hyperparameters control the training process. Parameters (feature weights, bias) are computed during training.
