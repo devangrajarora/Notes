@@ -41,4 +41,5 @@ Direction of difference does not matter when calculating loss. Both these condit
     * Mean of L<sub>2</sub> loss across data points
     * L<sub>2</sub> loss / N
   
-Squaring in L<sub>2</sub> and MSE, causes larger losses (>1) to become even bigger and smaller losses (<1) to become even smaller.
+Squaring in L<sub>2</sub> and MSE, causes larger losses (>1) to become even bigger and smaller losses (<1) to become even smaller.\
+A model trained to minimise MSE moves closer to outliers, since presence of outliers is penalized more with L<sub>2</sub> than L<sub>1</sub>.
