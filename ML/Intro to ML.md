@@ -37,9 +37,9 @@ Analogy:
   * Looking are previous quarter returns to predict next quarter returns
 
 Common use cases
-  1. Regression: Predicting numerical values based on historical data across multiple applicable factors
-	2. Classification: Categorizing inputs into one or more categories
-  	* Binary or Multiclass classification
+  1. **Regression**: Predicting numerical values based on historical data across multiple applicable factors
+  2. **Classification**: Categorizing inputs into one or more categories
+  	* Types: Binary or Multiclass classification
   	* Examples: Spam detection, classifying if an image is of a man/woman
 
 ### Unsupervised Learning
